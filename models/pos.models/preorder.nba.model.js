@@ -1,0 +1,39 @@
+const mongoose = require("mongoose");
+const Joi = require("joi");
+
+const PreOrderNBASchema = new mongoose.Schema({
+  ponba_shop_id: { type: String, required: true }, // Partner
+  ponba_number: { type: String, required: true }, //
+  ponba_detail: { type: String, required: true },
+  ponba_total: { type: Number, required: true },
+  ponba_status: { type: String, required: false, default: "รอยืนยัน" },
+  ponba_tax: {
+    name: { type: String, required: false, default: "ไม่มี" },
+    number: { type: String, required: false, default: "ไม่มี" },
+  },
+  ponba_timestamp: { type: Array, required: false, default: [] },
+});
+
+const PreOrderNBA = mongoose.model("preorder_nba", PreOrderNBASchema);
+
+const validate = (data) => {
+  const schema = Joi.object({
+    ponba_shop_id: Joi.string()
+      .required()
+      .label("กรุณากรอกไอดีผู้ทำรายการด้วย"),
+    ponba_number: Joi.string().required().label("กรุณากรอกเลขที่ใบ PO ด้วย"),
+    ponba_detail: Joi.string()
+      .required()
+      .label("กรุณากรอกรายละเอียดสินค้าด้วย"),
+    ponba_total: Joi.number().required().label("กรุณากรอกยอดคำสั่งซื้อด้วย"),
+    ponba_status: Joi.string().default("รอยืนยัน"),
+    ponba_tax: Joi.object({
+      name: Joi.string().default("ไม่มี"),
+      number: Joi.string().default("ไม่มี"),
+    }),
+    ponba_timestamp: Joi.array().default([]),
+  });
+  return schema.validate(data);
+};
+
+module.exports = { PreOrderNBA, validate };
