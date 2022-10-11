@@ -43,6 +43,32 @@ exports.findOne = async (req, res) => {
   }
 };
 
+exports.findByPartner = async (req, res) => {
+  const id = req.params.id;
+  try {
+    Shop.find({ shop_partner_id: id })
+      .then((data) => {
+        console.log(data);
+        if (!data)
+          res
+            .status(404)
+            .send({ message: "ไม่สามารถหารายงานนี้ได้", status: false });
+        else res.send({ data, status: true });
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: "มีบางอย่างผิดพลาด",
+          status: false,
+        });
+      });
+  } catch {
+    res.status(500).send({
+      message: "มีบางอย่างผิดพลาด",
+      status: false,
+    });
+  }
+};
+
 exports.delete = async (req, res) => {
   const id = req.params.id;
   try {

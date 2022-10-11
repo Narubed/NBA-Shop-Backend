@@ -4,6 +4,7 @@ const createShop = require("../../controllers/pos.controller/shop.controller/cre
 const updateShop = require("../../controllers/pos.controller/shop.controller/update.shop.controller");
 const auth = require("../../lib/auth");
 
+router.get("/partner/:id", auth, shop.findByPartner);
 router.post("/", auth, createShop.create);
 
 router.get("/", auth, shop.findAll);
