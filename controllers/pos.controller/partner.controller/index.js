@@ -1,5 +1,7 @@
-const bcrypt = require("bcrypt");
-const { Partners, validate } = require("../../../models/pos.models/partner.model");
+const {
+  Partners,
+  validate,
+} = require("../../../models/pos.models/partner.model");
 
 exports.findAll = async (req, res) => {
   try {

@@ -1,6 +1,3 @@
-const bcrypt = require("bcrypt");
-const multer = require("multer");
-const fs = require("fs");
 const {
   PreOrderShopFull,
   validate,

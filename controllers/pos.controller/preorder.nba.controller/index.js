@@ -1,7 +1,7 @@
-const bcrypt = require("bcrypt");
-const multer = require("multer");
-const fs = require("fs");
-const { PreOrderNBA, validate } = require("../../../models/pos.models/preorder.nba.model");
+const {
+  PreOrderNBA,
+  validate,
+} = require("../../../models/pos.models/preorder.nba.model");
 
 exports.findAll = async (req, res) => {
   try {
