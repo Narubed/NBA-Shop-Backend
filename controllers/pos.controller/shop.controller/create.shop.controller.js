@@ -66,11 +66,13 @@ exports.create = async (req, res) => {
         const { error } = validate(req.body);
         if (error)
           return res.status(400).send({ message: error.details[0].message });
-        await new Shop({
+        const shop = await new Shop({
           ...req.body,
           shop_logo: response.data.id,
         }).save();
-        res.status(201).send({ message: "สร้างรายงานใหม่เเล้ว", status: true });
+        res
+          .status(201)
+          .send({ message: "สร้างรายงานใหม่เเล้ว", status: true, shop: shop });
       } catch (error) {
         res
           .status(500)

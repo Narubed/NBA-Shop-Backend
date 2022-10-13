@@ -64,12 +64,23 @@ const checkPartners = async (req, res) => {
   console.log(req.body);
   try {
     let partner = await Partners.findOne({
-      partner_email: req.body.username,
+      partner_iden: req.body.username,
     });
     if (!partner) {
       checkEmployee(req, res);
     } else {
       console.log("partner", partner);
+
+      const validPasswordPartner = await bcrypt.compare(
+        req.body.password,
+        partner.partner_password
+      );
+      if (!validPasswordPartner)
+        // รหัสไม่ตรง
+        return res.status(401).send({
+          message: "password is not find",
+          status: false,
+        });
       let isShop = await Shop.findOne({
         shop_partner_id: partner._id,
         shop_status: true,
@@ -82,21 +93,12 @@ const checkPartners = async (req, res) => {
           status: false,
         });
       }
-      const validPasswordAdmin = await bcrypt.compare(
-        req.body.password,
-        partner.partner_password
-      );
-      if (!validPasswordAdmin)
-        // รหัสไม่ตรง
-        return res.status(401).send({
-          message: "password is not find",
-          status: false,
-        });
 
       const token = partner.generateAuthToken();
       const ResponesData = {
         name: partner.partner_name,
-        username: partner.partner_email,
+        username: partner.partner_iden,
+        email: partner.partner_email,
         shop_id: isShop._id,
         shop_level_name: isShop.shop_level_name,
         shop_level_note: isShop.shop_level_note,

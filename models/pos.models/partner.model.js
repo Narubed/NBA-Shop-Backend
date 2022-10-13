@@ -15,6 +15,7 @@ const complexityOptions = {
 
 const PartnersSchema = new mongoose.Schema({
   partner_name: { type: String, required: true }, //ชื่อ
+  partner_iden: { type: String, required: true }, // เลขบัตร
   partner_email: { type: String, required: true }, //เมล
   partner_password: { type: String, required: true }, //รหัส
   partner_wallet: { type: Number, required: false, default: 0 },
@@ -41,6 +42,9 @@ const Partners = mongoose.model("partners", PartnersSchema);
 const validate = (data) => {
   const schema = Joi.object({
     partner_name: Joi.string().required().label("กรุณากรอกชื่อผู้ใช้ด้วย"),
+    partner_iden: Joi.string()
+      .required()
+      .label("กรุณากรอกรหัสบัตร ปชช ผู้ใช้ด้วย"),
     partner_email: Joi.string().required().label("กรุณากรอกอีเมลผู้ใช้ด้วย"),
     partner_password: passwordComplexity(complexityOptions)
       .required()

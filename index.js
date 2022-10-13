@@ -8,6 +8,8 @@ connection();
 app.use(express.json());
 app.use(cors());
 
+// Delete Image
+app.use("/v1/nba-shop/delete/image", require("./routes/pos/deleteImage"));
 // CALL ME
 app.use("/v1/nba-shop/me", require("./routes/pos/me"));
 // UPLOAD FILE COLLECTION

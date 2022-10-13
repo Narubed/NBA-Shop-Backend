@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const {
   Partners,
   validate,
@@ -135,7 +136,7 @@ exports.update = async (req, res) => {
   }
 };
 exports.create = async (req, res) => {
-  console.log(req.body);
+  console.log("is body", req.body);
   try {
     const { error } = validate(req.body);
     if (error)
@@ -144,7 +145,7 @@ exports.create = async (req, res) => {
         .send({ message: error.details[0].message, status: false });
 
     const user = await Partners.findOne({
-      partner_email: req.body.partner_email,
+      partner_iden: req.body.partner_iden,
     });
     console.log(user);
     if (user)
@@ -155,7 +156,7 @@ exports.create = async (req, res) => {
 
     const salt = await bcrypt.genSalt(Number(process.env.SALT));
     const hashPassword = await bcrypt.hash(req.body.partner_password, salt);
-
+    console.log(salt);
     await new Partners({
       ...req.body,
       partner_password: hashPassword,
