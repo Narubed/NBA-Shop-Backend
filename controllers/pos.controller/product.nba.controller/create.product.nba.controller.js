@@ -1,6 +1,9 @@
 const multer = require("multer");
 const fs = require("fs");
-const { ProductShop, validate } = require("../../../models/pos.models/product.shop.model");
+const {
+  ProductNBA,
+  validate,
+} = require("../../../models/pos.models/product.nba.model");
 const { google } = require("googleapis");
 const CLIENT_ID = process.env.GOOGLE_DRIVE_CLIENT_ID;
 const CLIENT_SECRET = process.env.GOOGLE_DRIVE_CLIENT_SECRET;
@@ -42,6 +45,16 @@ exports.create = async (req, res) => {
     });
     async function uploadFileCreate(req, res) {
       const filePath = req.file.path;
+
+      const barcode = await ProductNBA.findOne({
+        productNBA_barcode: req.body.productNBA_barcode,
+      });
+      if (barcode)
+        return res.status(409).send({
+          status: false,
+          message: "มีรหัส Barcode นี้ในระบบเเล้ว",
+        });
+
       let fileMetaData = {
         name: req.file.originalname,
         parents: [process.env.GOOGLE_DRIVE_IMAGE_PRODUCTNBA],
@@ -59,7 +72,7 @@ exports.create = async (req, res) => {
         const { error } = validate(req.body);
         if (error)
           return res.status(400).send({ message: error.details[0].message });
-        await new ProductShop({
+        await new ProductNBA({
           ...req.body,
           productNBA_image: response.data.id,
         }).save();

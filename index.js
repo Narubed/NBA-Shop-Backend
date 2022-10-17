@@ -20,6 +20,9 @@ app.use(
 // LOGIN
 app.use("/v1/nba-shop/login", require("./routes/pos/login"));
 app.use("/v1/nba-shop/admin", require("./routes/pos/admin"));
+// Check
+app.use("/v1/nba-shop/check", require("./routes/pos/check"));
+
 app.use("/v1/nba-shop/employee", require("./routes/pos/employee"));
 app.use("/v1/nba-shop/partner", require("./routes/pos/partner"));
 app.use("/v1/nba-shop/shop", require("./routes/pos/shop"));

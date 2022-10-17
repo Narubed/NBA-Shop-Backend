@@ -36,6 +36,7 @@ router.post("/", auth, async (req, res) => {
         .then((item) => {
           console.log(item);
           return res.status(200).send({
+            _id: item._id,
             name: item.partner_name,
             username: item.partner_email,
             level: "partner",
