@@ -17,7 +17,7 @@ router.post("/", auth, async (req, res) => {
 
     if (decoded && decoded.row === "admin") {
       const id = decoded._id;
-      Admins.findOne({ id })
+      Admins.findOne({ _id: id })
         .then((item) => {
           console.log(item);
           return res.status(200).send({
@@ -32,7 +32,8 @@ router.post("/", auth, async (req, res) => {
         );
     } else if (decoded && decoded.row === "partner") {
       const id = decoded._id;
-      Partners.findOne({ id })
+      console.log(id);
+      Partners.findOne({ _id: id })
         .then((item) => {
           console.log(item);
           return res.status(200).send({
@@ -42,12 +43,13 @@ router.post("/", auth, async (req, res) => {
             level: "partner",
           });
         })
-        .catch(() =>
-          res.status(400).send({ message: "มีบางอย่างผิดพลาด", status: false })
-        );
+        .catch((err) => {
+          console.log(err);
+          res.status(400).send({ message: "มีบางอย่างผิดพลาด", status: false });
+        });
     } else {
       const id = decoded._id;
-      Employee.findOne({ id })
+      Employee.findOne({ _id: id })
         .then((item) => {
           console.log(item);
           return res.status(200).send({

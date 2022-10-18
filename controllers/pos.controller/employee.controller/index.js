@@ -1,5 +1,8 @@
 const bcrypt = require("bcrypt");
-const { Employee, validate } = require("../../../models/pos.models/employee.model");
+const {
+  Employee,
+  validate,
+} = require("../../../models/pos.models/employee.model");
 
 exports.findAll = async (req, res) => {
   try {
@@ -16,6 +19,32 @@ exports.findAll = async (req, res) => {
     res.status(500).send({ message: "มีบางอย่างผิดพลาด", status: false });
   }
 };
+exports.findByShopId = async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  try {
+    Employee.find({ employee_shop_id: id })
+      .then((data) => {
+        if (!data)
+          res
+            .status(404)
+            .send({ message: "ไม่สามารถหาผู้ใช้งานนี้ได้", status: false });
+        else res.send({ data, status: true });
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: "มีบางอย่างผิดพลาด",
+          status: false,
+        });
+      });
+  } catch (error) {
+    res.status(500).send({
+      message: "มีบางอย่างผิดพลาด",
+      status: false,
+    });
+  }
+};
+
 exports.findOne = async (req, res) => {
   const id = req.params.id;
   try {
@@ -154,11 +183,13 @@ exports.create = async (req, res) => {
     const salt = await bcrypt.genSalt(Number(process.env.SALT));
     const hashPassword = await bcrypt.hash(req.body.employee_password, salt);
 
-    await new Employee({
+    const result = await new Employee({
       ...req.body,
       employee_password: hashPassword,
     }).save();
-    res.status(201).send({ message: "สร้างข้อมูลสำเร็จ", status: true });
+    res
+      .status(201)
+      .send({ message: "สร้างข้อมูลสำเร็จ", status: true, result: result });
   } catch (error) {
     res.status(500).send({ message: "มีบางอย่างผิดพลาด", status: false });
   }

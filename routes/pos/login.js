@@ -157,6 +157,7 @@ const checkEmployee = async (req, res) => {
       const ResponesData = {
         name: employee.employee_name,
         username: employee.employee_username,
+        employee_status: employee.employee_status,
         shop_id: isShop._id,
         shop_level_name: isShop.shop_level_name,
         shop_level_note: isShop.shop_level_note,
@@ -167,7 +168,7 @@ const checkEmployee = async (req, res) => {
         token: token,
         message: "เข้าสู่ระบบสำเร็จ",
         result: ResponesData,
-        level: "employlee",
+        level: "employee",
         position: employee.employee_position,
         status: true,
       });
