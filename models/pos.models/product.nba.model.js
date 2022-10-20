@@ -3,6 +3,7 @@ const Joi = require("joi");
 
 const ProductNBASchema = new mongoose.Schema({
   productNBA_company_id: { type: String, required: true }, //
+  productNBA_type: { type: Array, required: false, default: [] },
   productNBA_name: { type: String, required: true }, //
   productNBA_barcode: { type: String, required: false, default: "" },
   productNBA_image: { type: String, required: false, default: "" }, //
@@ -35,6 +36,7 @@ const ProductNBA = mongoose.model("product_nba", ProductNBASchema);
 const validate = (data) => {
   const schema = Joi.object({
     productNBA_company_id: Joi.string().required(),
+    productNBA_type: Joi.array().default([]),
     productNBA_name: Joi.string().required(),
     productNBA_barcode: Joi.string().default(""),
     productNBA_image: Joi.string().default(""),

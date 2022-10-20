@@ -42,6 +42,8 @@ app.use("/v1/nba-shop/invoice/shop", require("./routes/pos/invoice.shop"));
 app.use("/v1/nba-shop/invoice-tax", require("./routes/pos/invoice.tax"));
 
 app.use("/v1/nba-shop/return/product", require("./routes/pos/return.product"));
+// Types
+app.use("/v1/nba-shop/type", require("./routes/pos/type"));
 
 const port = process.env.PORT || 9030;
 app.listen(port, console.log(`Listening on port ${port}...`));
