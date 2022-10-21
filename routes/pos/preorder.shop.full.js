@@ -3,6 +3,8 @@ const poshopf = require("../../controllers/pos.controller/preorder.shop.full.con
 
 const auth = require("../../lib/auth");
 
+router.get("/shop-id/:id",auth, poshopf.findByShopId);
+
 router.post("/", auth, poshopf.create);
 
 router.get("/", auth, poshopf.findAll);

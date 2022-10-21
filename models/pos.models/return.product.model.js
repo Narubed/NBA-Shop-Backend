@@ -2,8 +2,9 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 
 const ReturnProductSchema = new mongoose.Schema({
+  rtp_shop_id: { type: String, required: true },
   rtp_ref: { type: String, required: true },
-  rtp_product_name: { type: String, required: true }, // Partner
+  rtp_product_name: { type: String, required: true }, // 
   rtp_amount: { type: Number, required: true }, //
   rtp_note: { type: String, required: false, default: "ไม่มี" },
   rtp_status: { type: String, required: false, default: "ส่งคำร้องขอแล้ว" },
@@ -15,6 +16,7 @@ const ReturnProduct = mongoose.model("return_product", ReturnProductSchema);
 
 const validate = (data) => {
   const schema = Joi.object({
+    rtp_shop_id: Joi.string().required().label("กรุณากรอกเลข Shop ด้วย"),
     rtp_ref: Joi.string().required().label("กรุณากรอกเลขอ้างอิงด้วย"),
     rtp_product_name: Joi.string().required().label("กรุณากรอกชื่อสินค้าด้วย"),
     rtp_amount: Joi.number().required(),

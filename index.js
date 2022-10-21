@@ -17,6 +17,8 @@ app.use(
   "/v1/nba-shop/image/collection",
   require("./routes/pos/uploadfile.collection")
 );
+// Line Notify
+app.use("/v1/nba-shop/line-notify", require("./routes/pos/line.notify"));
 // LOGIN
 app.use("/v1/nba-shop/login", require("./routes/pos/login"));
 app.use("/v1/nba-shop/admin", require("./routes/pos/admin"));

@@ -3,11 +3,11 @@ const returnProduct = require("../../controllers/pos.controller/return.product.c
 
 const auth = require("../../lib/auth");
 
-router.post("/", auth, returnProduct.create);
+router.get("/shop-id/:id", auth, returnProduct.findByShopId);
 
+router.post("/", auth, returnProduct.create);
 router.get("/", auth, returnProduct.findAll);
 router.get("/:id", auth, returnProduct.findOne);
-
 router.delete("/:id", auth, returnProduct.delete);
 router.put("/:id", auth, returnProduct.update);
 

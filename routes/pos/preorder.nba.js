@@ -3,6 +3,8 @@ const ponba = require("../../controllers/pos.controller/preorder.nba.controller"
 
 const auth = require("../../lib/auth");
 
+router.get("/shop-id/:id",auth, ponba.findByShopId);
+
 router.post("/", auth, ponba.create);
 
 router.get("/", auth, ponba.findAll);

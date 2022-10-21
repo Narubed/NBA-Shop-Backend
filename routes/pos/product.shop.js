@@ -4,6 +4,8 @@ const createProduct = require("../../controllers/pos.controller/product.shop.con
 const updateProduct = require("../../controllers/pos.controller/product.shop.controller/update.product.shop.controller");
 const auth = require("../../lib/auth");
 
+router.get("/shop-id/:id",auth, product.findByShopId);
+
 router.post("/", auth, createProduct.create);
 
 router.get("/", auth, product.findAll);
