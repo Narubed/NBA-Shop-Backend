@@ -23,6 +23,8 @@ const ProductNBASchema = new mongoose.Schema({
       province: { type: Number, required: true },
     },
     shop: { type: Number, required: true },
+    bonus: { type: Number, required: true },
+    central: { type: Number, required: true },
   },
   productNBA_status: { type: Boolean, required: false, default: true },
   productNBA_detail: { type: String, required: true }, //
@@ -56,6 +58,10 @@ const validate = (data) => {
         province: Joi.number().required(),
       }),
       shop: Joi.number().required(),
+      bonus: Joi.number().required(),
+      central: Joi.number().required(),
+      // กองทุน
+      // โบนัสพนักงาน
     }),
     productNBA_status: Joi.boolean().default(true),
     productNBA_detail: Joi.string().required(),
