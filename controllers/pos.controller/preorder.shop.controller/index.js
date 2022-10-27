@@ -124,7 +124,7 @@ exports.create = async (req, res) => {
     res.status(201).send({
       message: "เพิ่มข้อมูลสำเร็จ",
       status: true,
-      ponba: result,
+      poshop: result,
     });
   } catch (error) {
     res.status(500).send({ message: "มีบางอย่างผิดพลาด", status: false });
