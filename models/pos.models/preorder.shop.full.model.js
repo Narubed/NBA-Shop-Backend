@@ -18,7 +18,7 @@ const PreOrderShopFullSchema = new mongoose.Schema({
 
   poshopf_ref_short_id: { type: String, required: false, default: "ไม่มี" },
   poshopf_timestamp: { type: Date, required: false, default: Date.now() },
-  poshopf_marklist: { type: String, required: false, default: "ไม่มี" },
+  poshopf_employee: { type: String, required: false, default: "ไม่มี" },
 });
 
 const PreOrderShopFull = mongoose.model(
@@ -46,7 +46,7 @@ const validate = (data) => {
 
     poshopf_ref_short_id: Joi.string().default("ไม่มี"),
     poshopf_timestamp: Joi.date().raw().default(Date.now()),
-    poshopf_marklist: Joi.string().default("ไม่มี"),
+    poshopf_employee: Joi.string().default("ไม่มี"),
   });
   return schema.validate(data);
 };
