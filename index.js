@@ -50,6 +50,18 @@ app.use("/v1/nba-shop/invoice-tax", require("./routes/pos/invoice.tax"));
 app.use("/v1/nba-shop/return/product", require("./routes/pos/return.product"));
 // Types
 app.use("/v1/nba-shop/type", require("./routes/pos/type"));
+app.use("/v1/nba-shop/dealer", require("./routes/pos/dealer"));
+
+app.use(
+  "/v1/nba-shop/product/request",
+  require("./routes/pos/product.request")
+);
+
+app.use(
+  "/v1/nba-shop/product/reference",
+  require("./routes/pos/product.reference")
+);
+
 
 const port = process.env.PORT || 9030;
 app.listen(port, console.log(`Listening on port ${port}...`));

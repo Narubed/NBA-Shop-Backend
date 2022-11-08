@@ -2,15 +2,16 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 
 const ProductNBASchema = new mongoose.Schema({
+  productNBA_dealer_id: { type: String, required: false, default: "ไม่มี" }, // เพิ่ม 
   productNBA_company_id: { type: String, required: true }, //
   productNBA_type: { type: Array, required: false, default: [] },
   productNBA_name: { type: String, required: true }, //
   productNBA_barcode: { type: String, required: false, default: "" },
   productNBA_image: { type: String, required: false, default: "" }, //
-  productNBA_cost: { type: Number, required: true }, //
+  productNBA_cost: { type: Number, required: true }, // dealer ขายให้เรา
   productNBA_price: { type: Number, required: true }, //
   productNBA_profit: {
-    nba: { type: Number, required: true },
+    nba: { type: Number, required: true }, 
     platform: {
       level_one: { type: Number, required: true },
       level_two: { type: Number, required: true },
@@ -30,6 +31,7 @@ const ProductNBASchema = new mongoose.Schema({
   productNBA_detail: { type: String, required: true }, //
   productNBA_stock: { type: Number, required: true }, //
   productNBA_date_start: { type: Date, required: false, default: Date.now() }, // เริ่ม
+  productNBA_vat_status: { type: Boolean, required: false, default: true }, // เพิ่ม
   // --------------------------------
 });
 
@@ -37,6 +39,7 @@ const ProductNBA = mongoose.model("product_nba", ProductNBASchema);
 
 const validate = (data) => {
   const schema = Joi.object({
+    productNBA_dealer_id: Joi.string().default("ไม่มี"),
     productNBA_company_id: Joi.string().required(),
     productNBA_type: Joi.array().default([]),
     productNBA_name: Joi.string().required(),
@@ -67,6 +70,7 @@ const validate = (data) => {
     productNBA_detail: Joi.string().required(),
     productNBA_stock: Joi.number().required(),
     productNBA_date_start: Joi.date().raw().default(Date.now()),
+    productNBA_vat_status: Joi.boolean().default(true),
   });
   return schema.validate(data);
 };

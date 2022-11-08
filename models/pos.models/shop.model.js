@@ -20,6 +20,7 @@ const ShopSchema = new mongoose.Schema({
   shop_tax_name: { type: String, required: false, default: "ไม่มี" },
   shop_tax_number: { type: String, required: false, default: "ไม่มี" },
   shop_tax_address: { type: String, required: false, default: "ไม่มี" },
+  shop_tax_phone: { type: String, required: false, default: "ไม่มี" },
   shop_date_start: { type: Date, required: false, default: Date.now() }, // เริ่ม
 });
 
@@ -40,11 +41,17 @@ const validate = (data) => {
     shop_status: Joi.boolean().default(true),
     shop_level_name: Joi.string().default("ระดับตำบล"),
     shop_level_note: Joi.string().default("ไม่มี"),
-    shop_function: Joi.array().default([]),
-    shop_status_tax: Joi.string().default("ไม่มี"),
-    shop_tax_name: Joi.string().default("ไม่มี"),
-    shop_tax_number: Joi.string().default("ไม่มี"),
-    shop_tax_address: Joi.string().default("ไม่มี"),
+    shop_function: Joi.array().default([]), // เปิดการใช้งานบริการ
+
+    shop_status_tax: Joi.string().default("ไม่มี"), // ลงทะเบียนพาณิย์, เป็นผู้เสียภาษี
+    //
+    shop_tax_name: Joi.string().default("ไม่มี"), // ชื่อผู้ประกอบการ, ชื่อผู้ลงทะเบียนผู้เสียภาษี
+    shop_tax_number: Joi.string().default("ไม่มี"), // เลขผู้เสียภาษี
+    shop_tax_address: Joi.string().default("ไม่มี"), //
+    shop_tax_phone: Joi.string().default("ไม่มี"),
+
+    shop_vat_name: Joi.string().default("ไม่มี"), // ชื่อผู้เสีย
+
     shop_date_start: Joi.date().raw().default(Date.now()),
   });
   return schema.validate(data);
