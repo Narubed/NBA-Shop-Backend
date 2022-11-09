@@ -7,10 +7,7 @@ const PreOrderNBASchema = new mongoose.Schema({
   ponba_detail: { type: Array, required: false, default: [] },
   ponba_total: { type: Number, required: true },
   ponba_status: { type: String, required: false, default: "รอตรวจสอบ" },
-  ponba_tax: {
-    name: { type: String, required: false, default: "ไม่มี" },
-    number: { type: String, required: false, default: "ไม่มี" },
-  },
+
   ponba_timestamp: { type: Array, required: false, default: [] },
 });
 
@@ -25,10 +22,7 @@ const validate = (data) => {
     ponba_detail: Joi.array().default([]),
     ponba_total: Joi.number().required().label("กรุณากรอกยอดคำสั่งซื้อด้วย"),
     ponba_status: Joi.string().default("รอตรวจสอบ"),
-    ponba_tax: Joi.object({
-      name: Joi.string().default("ไม่มี"),
-      number: Joi.string().default("ไม่มี"),
-    }),
+
     ponba_timestamp: Joi.array().default([]),
   });
   return schema.validate(data);

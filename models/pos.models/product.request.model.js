@@ -7,7 +7,7 @@ const ProductReqSchema = new mongoose.Schema({
   productReq_image: { type: String, required: false, default: "" },
   productReq_cost: { type: Number, required: true },
   productReq_price: { type: Number, required: true },
-  productReq_profit: { type: Number, required: true },
+  productReq_profit: { type: Number, required: true }, //
   productReq_status: { type: Boolean, required: false, default: false },
   productReq_vat_status: { type: Boolean, required: false, default: false },
   productReq_timestamp: { type: Date, required: false, default: Date.now() },

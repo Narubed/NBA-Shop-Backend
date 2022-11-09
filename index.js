@@ -61,7 +61,7 @@ app.use(
   "/v1/nba-shop/product/reference",
   require("./routes/pos/product.reference")
 );
-
+app.use("/v1/nba-shop/brand", require("./routes/pos/brand"));
 
 const port = process.env.PORT || 9030;
 app.listen(port, console.log(`Listening on port ${port}...`));
