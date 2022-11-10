@@ -3,6 +3,7 @@ const { Admins } = require("../../models/pos.models/admin.model");
 const { Partners } = require("../../models/pos.models/partner.model");
 const { Employee } = require("../../models/pos.models/employee.model");
 const { Shop } = require("../../models/pos.models/shop.model");
+const { Dealers } = require("../../models/pos.models/dealer.model");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
 require("dotenv").config();
@@ -19,7 +20,7 @@ router.post("/", async (req, res) => {
     });
 
     if (!admin) {
-      checkPartners(req, res);
+      await checkPartners(req, res);
     } else {
       const validPasswordAdmin = await bcrypt.compare(
         req.body.password,
@@ -38,7 +39,6 @@ router.post("/", async (req, res) => {
         username: admin.admin_username,
         position: admin.admin_position,
       };
-      console.log(ResponesData);
       res.status(200).send({
         token: token,
         message: "เข้าสู่ระบบสำเร็จ",
@@ -67,10 +67,8 @@ const checkPartners = async (req, res) => {
       partner_iden: req.body.username,
     });
     if (!partner) {
-      checkEmployee(req, res);
+      await checkEmployee(req, res);
     } else {
-      console.log("partner", partner);
-
       const validPasswordPartner = await bcrypt.compare(
         req.body.password,
         partner.partner_password
@@ -85,7 +83,6 @@ const checkPartners = async (req, res) => {
         shop_partner_id: partner._id,
         shop_status: true,
       });
-      console.log("isShop", isShop);
 
       if (!isShop) {
         return res.status(401).send({
@@ -104,7 +101,6 @@ const checkPartners = async (req, res) => {
         shop_level_note: isShop.shop_level_note,
         shop_function: isShop.shop_function,
       };
-      console.log(ResponesData);
       res.status(200).send({
         token: token,
         message: "เข้าสู่ระบบสำเร็จ",
@@ -124,17 +120,12 @@ const checkEmployee = async (req, res) => {
       employee_username: req.body.username,
     });
     if (!employee) {
-      return res.status(401).send({
-        message: "username is not find",
-        status: false,
-      });
+      await checkDealer(req, res);
     } else {
-      console.log("employee", employee.employee_shop_id);
       let isShop = await Shop.findOne({
         _id: employee.employee_shop_id,
         shop_status: true,
       });
-      console.log("isShop", isShop);
       if (!isShop) {
         return res.status(401).send({
           message: "ไม่มีสาขาที่ออนไลน์อยู่",
@@ -163,13 +154,59 @@ const checkEmployee = async (req, res) => {
         shop_level_note: isShop.shop_level_note,
         shop_function: isShop.shop_function,
       };
-      console.log(ResponesData);
       res.status(200).send({
         token: token,
         message: "เข้าสู่ระบบสำเร็จ",
         result: ResponesData,
         level: "employee",
         position: employee.employee_position,
+        status: true,
+      });
+    }
+  } catch (error) {
+    res.status(500).send({ message: "Internal Server Error" });
+  }
+};
+
+const checkDealer = async (req, res) => {
+  try {
+    let dealer = await Dealers.findOne({
+      dealer_username: req.body.username,
+    });
+
+    if (!dealer) {
+      return res.status(401).send({
+        message: "username is not find",
+        status: false,
+      });
+    } else {
+      const validPasswordDealer = await bcrypt.compare(
+        req.body.password,
+        dealer.dealer_password
+      );
+
+      if (!validPasswordDealer)
+        // รหัสไม่ตรง
+        return res.status(401).send({
+          message: "password is not find",
+          status: false,
+        });
+      const token = dealer.generateAuthToken();
+
+      const ResponesData = {
+        name: dealer.dealer_name,
+        username: dealer.dealer_username,
+        address: dealer.dealer_address,
+        phone: dealer.dealer_phone,
+        status: dealer.dealer_status,
+        status_promiss: dealer.dealer_status_promiss,
+      };
+      res.status(200).send({
+        token: token,
+        message: "เข้าสู่ระบบสำเร็จ",
+        result: ResponesData,
+        level: "dealer",
+        position: "dealer",
         status: true,
       });
     }

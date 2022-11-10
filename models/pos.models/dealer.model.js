@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
+const jwt = require("jsonwebtoken");
 const passwordComplexity = require("joi-password-complexity");
 
 const complexityOptions = {
@@ -30,6 +31,17 @@ const DealerSchema = new mongoose.Schema({
   dealer_iden_number: { type: String, required: true },
   dealer_timestamp: { type: Array, required: false, default: [] },
 });
+
+DealerSchema.methods.generateAuthToken = function () {
+  const token = jwt.sign(
+    { _id: this._id, row: "dealer" },
+    process.env.JWTPRIVATEKEY,
+    {
+      expiresIn: "12h",
+    }
+  );
+  return token;
+};
 
 const Dealers = mongoose.model("dealer", DealerSchema);
 
