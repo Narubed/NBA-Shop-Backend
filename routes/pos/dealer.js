@@ -15,7 +15,9 @@ router.get("/request/:id", auth, dealerRequest.findOne);
 router.delete("/request/:id", auth, dealerRequest.delete);
 router.put("/request/:id", auth, dealerUpdateRequest.update);
 // __________________________________________________________
-router.post("/", auth, dealerCreact.create);
+
+router.get("/check-phone/:id", dealer.findCheckPhone);
+router.post("/", dealerCreact.create);
 router.get("/", auth, dealer.findAll);
 router.get("/:id", auth, dealer.findOne);
 router.delete("/:id", auth, dealer.delete);

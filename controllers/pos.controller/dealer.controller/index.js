@@ -153,7 +153,7 @@ exports.create = async (req, res) => {
         status: false,
         message: "มีชื่อผู้ใช้งานนี้ในระบบเเล้ว",
       });
-      console.log(user);
+    console.log(user);
     const salt = await bcrypt.genSalt(Number(process.env.SALT));
     const hashPassword = await bcrypt.hash(req.body.dealer_password, salt);
 
@@ -164,5 +164,32 @@ exports.create = async (req, res) => {
     res.status(201).send({ message: "สร้างข้อมูลสำเร็จ", status: true });
   } catch (error) {
     res.status(500).send({ message: "มีบางอย่างผิดพลาด", status: false });
+  }
+};
+
+exports.findCheckPhone = async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  try {
+    Dealers.findOne({ dealer_phone: id })
+      .then((data) => {
+        console.log(data);
+        if (!data)
+          res
+            .status(404)
+            .send({ message: "ไม่มีผู้ใช้งานนี้ในระบบ", status: true });
+        else res.send({ message: "มีผู้ใช้งานนี้ในระบบเเล้ว", status: false });
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: "มีบางอย่างผิดพลาด",
+          status: false,
+        });
+      });
+  } catch (error) {
+    res.status(500).send({
+      message: "มีบางอย่างผิดพลาด",
+      status: false,
+    });
   }
 };

@@ -172,6 +172,7 @@ const checkDealer = async (req, res) => {
   try {
     let dealer = await Dealers.findOne({
       dealer_username: req.body.username,
+      dealer_status: true,
     });
 
     if (!dealer) {

@@ -51,8 +51,8 @@ exports.create = async (req, res) => {
   }
   async function uploadFileCreate(req, res) {
     try {
-      const filePathIden = req.files.dealer_bookbank[0].path;
-      const filePathBank = req.files.dealer_iden[0].path;
+      const filePathIden = req.files.dealer_iden[0].path;
+      const filePathBank = req.files.dealer_bookbank[0].path;
 
       let fileMetaDataIden = {
         name: req.files.dealer_iden[0].originalname,

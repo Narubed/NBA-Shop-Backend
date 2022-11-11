@@ -3,7 +3,6 @@ const Joi = require("joi");
 
 const ProductNBASchema = new mongoose.Schema({
   productNBA_brand_id: { type: String, required: false, default: "ไม่มี" }, // เพิ่ม 
-  productNBA_company_id: { type: String, required: true }, //
   productNBA_type: { type: Array, required: false, default: [] },
   productNBA_name: { type: String, required: true }, //
   productNBA_barcode: { type: String, required: false, default: "" },
@@ -40,7 +39,6 @@ const ProductNBA = mongoose.model("product_nba", ProductNBASchema);
 const validate = (data) => {
   const schema = Joi.object({
     productNBA_brand_id: Joi.string().default("ไม่มี"),
-    productNBA_company_id: Joi.string().required(),
     productNBA_type: Joi.array().default([]),
     productNBA_name: Joi.string().required(),
     productNBA_barcode: Joi.string().default(""),

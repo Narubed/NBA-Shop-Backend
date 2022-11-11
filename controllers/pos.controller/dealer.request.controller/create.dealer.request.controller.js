@@ -28,6 +28,7 @@ const storage = multer.diskStorage({
 });
 
 exports.create = async (req, res) => {
+  console.log(req.body)
   try {
     let upload = multer({ storage: storage }).single("dealerReq_product_image");
     upload(req, res, async function (err) {
