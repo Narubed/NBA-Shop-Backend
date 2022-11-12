@@ -173,12 +173,14 @@ exports.findCheckPhone = async (req, res) => {
   try {
     Dealers.findOne({ dealer_phone: id })
       .then((data) => {
-        console.log(data);
         if (!data)
           res
-            .status(404)
+            .status(200)
             .send({ message: "ไม่มีผู้ใช้งานนี้ในระบบ", status: true });
-        else res.send({ message: "มีผู้ใช้งานนี้ในระบบเเล้ว", status: false });
+        else
+          res
+            .status(200)
+            .send({ message: "มีผู้ใช้งานนี้ในระบบเเล้ว", status: false });
       })
       .catch((err) => {
         res.status(500).send({
