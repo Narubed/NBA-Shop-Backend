@@ -3,6 +3,7 @@ const { Admins } = require("../../models/pos.models/admin.model");
 const { Partners } = require("../../models/pos.models/partner.model");
 const { Employee } = require("../../models/pos.models/employee.model");
 const { Shop } = require("../../models/pos.models/shop.model");
+const { Dealers } = require("../../models/pos.models/dealer.model");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
 require("dotenv").config();
@@ -41,6 +42,23 @@ router.post("/", auth, async (req, res) => {
             name: item.partner_name,
             username: item.partner_email,
             level: "partner",
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(400).send({ message: "มีบางอย่างผิดพลาด", status: false });
+        });
+    } else if (decoded && decoded.row === "dealer") {
+      const id = decoded._id;
+      console.log(id);
+      Dealers.findOne({ _id: id })
+        .then((item) => {
+          console.log(item);
+          return res.status(200).send({
+            _id: item._id,
+            name: item.dealer_name,
+            username: item.dealer_username,
+            level: "dealer",
           });
         })
         .catch((err) => {
