@@ -70,3 +70,20 @@ exports.delete = async (req, res) => {
     });
   }
 };
+
+exports.findByDealer = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    Brand.find({ brand_dealer_id: id })
+      .then(async (data) => {
+        res.status(201).send({ data, message: "success", status: true });
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "มีบางอย่างผิดพลาด",
+        });
+      });
+  } catch (error) {
+    res.status(500).send({ message: "มีบางอย่างผิดพลาด", status: false });
+  }
+};

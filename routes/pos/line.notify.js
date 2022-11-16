@@ -1,9 +1,8 @@
 const router = require("express").Router();
 var express = require("express");
 var request = require("request");
-const auth = require("../../lib/auth");
 
-router.post("/", auth, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     var token = req.body.token;
     var message = req.body.message;

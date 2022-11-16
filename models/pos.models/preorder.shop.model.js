@@ -12,7 +12,7 @@ const PreOrderShopSchema = new mongoose.Schema({
   poshop_discount: { type: Number, required: false, default: 0 },
   poshop_status: { type: Boolean, required: false, default: true },
   poshop_phone: { type: String, required: false, default: "ไม่มี" },
-  poshop_ref_short_id: { type: String, required: false, default: "ไม่มี" },
+  poshop_ref_short_id: { type: String, required: false, default: "ไม่มี" }, // อ้างอิงกรณียกเลิกบิล
   poshop_timestamp: { type: Date, required: false, default: Date.now() },
   poshop_employee: { type: String, required: false, default: "ไม่มี" },
 });

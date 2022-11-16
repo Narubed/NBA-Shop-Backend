@@ -31,6 +31,9 @@ const DealerSchema = new mongoose.Schema({
   dealer_bookbank_number: { type: String, required: true },
   dealer_iden: { type: String, required: false, default: "" }, // images
   dealer_iden_number: { type: String, required: true },
+  dealer_company_name: { type: String, required: false, default: "ไม่มี" },
+  dealer_company_number: { type: String, required: false, default: "ไม่มี" },
+  dealer_company_address: { type: String, required: false, default: "ไม่มี" },
   dealer_timestamp: { type: Array, required: false, default: [] },
 });
 
@@ -63,6 +66,10 @@ const validate = (data) => {
     dealer_bookbank_number: Joi.string().required(),
     dealer_iden: Joi.string().default(""),
     dealer_iden_number: Joi.string().required(),
+    dealer_company_name: Joi.string().default("ไม่มี"),
+    dealer_company_number: Joi.string().default("ไม่มี"),
+    dealer_company_address: Joi.string().default("ไม่มี"),
+
     dealer_timestamp: Joi.array().default([]), // {name: ไม่ยอมรับเงื่อนไข, timestamp: Date.now(), remake: ไม่มี, note: ไม่มี} //รอตรวจสอบ
   });
   return schema.validate(data);

@@ -5,6 +5,7 @@ const ProductReqSchema = new mongoose.Schema({
   productReq_shop_id: { type: String, required: true },
   productReq_name: { type: String, required: true },
   productReq_image: { type: String, required: false, default: "" },
+  
   productReq_cost: { type: Number, required: true },
   productReq_price: { type: Number, required: true },
   productReq_profit: { type: Number, required: true }, //

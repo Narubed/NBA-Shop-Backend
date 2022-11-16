@@ -4,6 +4,7 @@ const Joi = require("joi");
 const ShopSchema = new mongoose.Schema({
   shop_partner_id: { type: String, required: true }, // Partner
   shop_credit: { type: Number, required: true },
+  shop_debit: { type: Number, required: false, default: 0 },
   shop_name: { type: String, required: true }, //ชื่อ
   shop_logo: { type: String, required: false, default: "" }, // Logo
   shop_address: { type: String, required: true }, //ที่อยู่
@@ -30,6 +31,7 @@ const validate = (data) => {
   const schema = Joi.object({
     shop_partner_id: Joi.string().required().label("กรุณากรอกไอดีเจ้าของด้วย"),
     shop_credit: Joi.number().required().label("กรุณากรอกเครดิตเริ่มต้นด้วย"),
+    shop_debit: Joi.number().default(0),
     shop_name: Joi.string().required().label("กรุณากรอกชื่อร้านด้วย"),
     shop_logo: Joi.string().default(""),
     shop_address: Joi.string().required().label("กรุณากรอกที่อยู่ร้านด้วย"),

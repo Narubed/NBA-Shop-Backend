@@ -4,6 +4,8 @@ const createBrand = require("../../controllers/pos.controller/brand.controller/c
 const updateBrand = require("../../controllers/pos.controller/brand.controller/update.brand.controller");
 const auth = require("../../lib/auth");
 
+router.get("/dealer/:id", auth, brand.findByDealer);
+
 router.post("/", createBrand.create);
 
 router.get("/", auth, brand.findAll);
