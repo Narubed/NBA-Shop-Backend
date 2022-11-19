@@ -18,6 +18,23 @@ exports.findAll = async (req, res, next) => {
     res.status(500).send({ message: "มีบางอย่างผิดพลาด", status: false });
   }
 };
+exports.findByDealerId = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    DealerReq.find({ dealerReq_dealer_id: id })
+      .then(async (data) => {
+        res.status(201).send({ data, message: "success", status: true });
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "มีบางอย่างผิดพลาด",
+        });
+      });
+  } catch (error) {
+    res.status(500).send({ message: "มีบางอย่างผิดพลาด", status: false });
+  }
+};
+
 exports.findOne = async (req, res) => {
   const id = req.params.id;
   try {

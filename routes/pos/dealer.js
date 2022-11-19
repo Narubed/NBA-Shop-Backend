@@ -9,6 +9,7 @@ const dealerUpdateRequest = require("../../controllers/pos.controller/dealer.req
 
 const auth = require("../../lib/auth");
 
+router.get("/request/dealer/:id", auth, dealerRequest.findByDealerId);
 router.post("/request/", auth, dealerCreactRequest.create);
 router.get("/request/", auth, dealerRequest.findAll);
 router.get("/request/:id", auth, dealerRequest.findOne);
