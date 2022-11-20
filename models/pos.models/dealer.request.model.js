@@ -13,6 +13,7 @@ const DealerReqSchema = new mongoose.Schema({
   dealerReq_stock_amount: { type: Number, required: false, default: 0 }, //
   dealerReq_status: { type: String, required: false, default: "รอตรวจสอบ" },
   dealerReq_store: { type: String, required: false, default: "dealer" }, //
+  dealerReq_status_type: { type: String, required: false, default: "เครดิต" },
   dealerReq_timestamp: { type: Array, required: false, default: [] },
 });
 
@@ -31,6 +32,7 @@ const validate = (data) => {
     dealerReq_stock_amount: Joi.number().default(0),
     dealerReq_status: Joi.string().default("รอตรวจสอบ"),
     dealerReq_store: Joi.string().default("dealer"),
+    dealerReq_status_type: Joi.string().default("เครดิต"),
     dealerReq_timestamp: Joi.array().default([]), // {name:string, timestamp:Date.now(), remake: มีกิน , note: รายละเอียด}
   });
   return schema.validate(data);
