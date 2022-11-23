@@ -1,4 +1,7 @@
-const { ProductNBA, validate } = require("../../../models/pos.models/product.nba.model");
+const {
+  ProductNBA,
+  validate,
+} = require("../../../models/pos.models/product.nba.model");
 
 exports.findAll = async (req, res, next) => {
   try {
@@ -71,4 +74,19 @@ exports.delete = async (req, res) => {
   }
 };
 
-
+exports.findByDealerId = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    ProductNBA.find({ productNBA_dealer_id: id })
+      .then(async (data) => {
+        res.status(201).send({ data, message: "success", status: true });
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "มีบางอย่างผิดพลาด",
+        });
+      });
+  } catch (error) {
+    res.status(500).send({ message: "มีบางอย่างผิดพลาด", status: false });
+  }
+};

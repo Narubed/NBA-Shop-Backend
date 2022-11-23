@@ -9,24 +9,27 @@ const ProductNBASchema = new mongoose.Schema({
   productNBA_name: { type: String, required: true }, //
   productNBA_barcode: { type: String, required: false, default: "" },
   productNBA_image: { type: String, required: false, default: "" }, //
+  productNBA_cost_nba: { type: Number, required: true }, // dealer ขายให้เรา
   productNBA_cost: { type: Number, required: true }, // dealer ขายให้เรา
   productNBA_price: { type: Number, required: true }, //
   productNBA_profit: {
-    nba: { type: Number, required: true },
+    nba: { type: Number, required: true, default: 0 },
     platform: {
-      level_one: { type: Number, required: true },
-      level_two: { type: Number, required: true },
-      level_tree: { type: Number, required: true },
-      level_owner: { type: Number, required: true },
+      level_one: { type: Number, required: true, default: 0 },
+      level_two: { type: Number, required: true, default: 0 },
+      level_tree: { type: Number, required: true, default: 0 },
+      level_owner: { type: Number, required: true, default: 0 },
     },
     terrestrial: {
-      district: { type: Number, required: true },
-      state: { type: Number, required: true },
-      province: { type: Number, required: true },
+      district: { type: Number, required: true, default: 0 },
+      state: { type: Number, required: true, default: 0 },
+      province: { type: Number, required: true, default: 0 },
+      bonus: { type: Number, required: true, default: 0 },
     },
-    shop: { type: Number, required: true },
-    bonus: { type: Number, required: true },
-    central: { type: Number, required: true },
+    central: {
+      central: { type: Number, required: true, default: 0 },
+      allsale: { type: Number, required: true, default: 0 },
+    },
   },
   productNBA_status: { type: Boolean, required: false, default: true },
   productNBA_status_type: { type: String, required: false, default: "เครดิต" },
@@ -47,26 +50,27 @@ const validate = (data) => {
     productNBA_name: Joi.string().required(),
     productNBA_barcode: Joi.string().default(""),
     productNBA_image: Joi.string().default(""),
+    productNBA_cost_nba: Joi.number().required(),
     productNBA_cost: Joi.number().required(),
     productNBA_price: Joi.number().required(),
     productNBA_profit: Joi.object({
-      nba: Joi.number().required(),
+      nba: Joi.number().required().default(0),
       platform: Joi.object({
-        level_one: Joi.number().required(),
-        level_two: Joi.number().required(),
-        level_tree: Joi.number().required(),
-        level_owner: Joi.number().required(),
+        level_one: Joi.number().required().default(0),
+        level_two: Joi.number().required().default(0),
+        level_tree: Joi.number().required().default(0),
+        level_owner: Joi.number().required().default(0),
       }),
       terrestrial: Joi.object({
-        district: Joi.number().required(),
-        state: Joi.number().required(),
-        province: Joi.number().required(),
+        district: Joi.number().required().default(0),
+        state: Joi.number().required().default(0),
+        province: Joi.number().required().default(0),
+        bonus: Joi.number().required().default(0),
       }),
-      shop: Joi.number().required(),
-      bonus: Joi.number().required(),
-      central: Joi.number().required(),
-      // กองทุน
-      // โบนัสพนักงาน
+      central: Joi.object({
+        central: Joi.number().required().default(0),
+        allsale: Joi.number().required().default(0),
+      }),
     }),
     productNBA_status: Joi.boolean().default(true),
     productNBA_status_type: Joi.string().default("เครดิต"),

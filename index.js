@@ -63,5 +63,7 @@ app.use(
 );
 app.use("/v1/nba-shop/brand", require("./routes/pos/brand"));
 
+app.use("/v1/nba-shop/percent-profit", require("./routes/pos/percent.profit"));
+
 const port = process.env.PORT || 9030;
 app.listen(port, console.log(`Listening on port ${port}...`));

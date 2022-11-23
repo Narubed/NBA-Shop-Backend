@@ -87,11 +87,11 @@ exports.update = async (req, res) => {
         resource: fileMetaDataBank,
         media: mediaBank,
       });
-      const { error } = validate(req.body);
-      if (error)
-        return res
-          .status(400)
-          .send({ message: error.details[0].message, status: false });
+      // const { error } = validate(req.body);
+      // if (error)
+      //   return res
+      //     .status(400)
+      //     .send({ message: error.details[0].message, status: false });
       if (req.body.dealer_password) {
         const salt = await bcrypt.genSalt(Number(process.env.SALT));
         const hashPassword = await bcrypt.hash(req.body.dealer_password, salt);
@@ -174,11 +174,11 @@ exports.update = async (req, res) => {
         media: mediaIden,
       });
 
-      const { error } = validate(req.body);
-      if (error)
-        return res
-          .status(400)
-          .send({ message: error.details[0].message, status: false });
+      // const { error } = validate(req.body);
+      // if (error)
+      //   return res
+      //     .status(400)
+      //     .send({ message: error.details[0].message, status: false });
       if (req.body.dealer_password) {
         const salt = await bcrypt.genSalt(Number(process.env.SALT));
         const hashPassword = await bcrypt.hash(req.body.dealer_password, salt);
@@ -258,11 +258,11 @@ exports.update = async (req, res) => {
         resource: fileMetaDataBank,
         media: mediaBank,
       });
-      const { error } = validate(req.body);
-      if (error)
-        return res
-          .status(400)
-          .send({ message: error.details[0].message, status: false });
+      // const { error } = validate(req.body);
+      // if (error)
+      //   return res
+      //     .status(400)
+      //     .send({ message: error.details[0].message, status: false });
       if (req.body.dealer_password) {
         const salt = await bcrypt.genSalt(Number(process.env.SALT));
         const hashPassword = await bcrypt.hash(req.body.dealer_password, salt);

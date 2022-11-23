@@ -6,6 +6,7 @@ const auth = require("../../lib/auth");
 
 router.post("/", auth, createProduct.create);
 
+router.get("/dealer/:id", auth, product.findByDealerId);
 router.get("/", auth, product.findAll);
 router.get("/:id", auth, product.findOne);
 

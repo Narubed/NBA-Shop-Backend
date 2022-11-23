@@ -32,9 +32,13 @@ exports.create = async (req, res) => {
     let upload = multer({ storage: storage }).single("productNBA_image");
     upload(req, res, async function (err) {
       if (!req.file) {
-        res
-          .status(400)
-          .send({ message: "กรูณาส่งไฟล์รูปภาพมาด้วย", status: true });
+        const { error } = validate(req.body);
+        if (error)
+          return res.status(400).send({ message: error.details[0].message });
+        await new ProductNBA({
+          ...req.body,
+        }).save();
+        res.status(201).send({ message: "สร้างรายงานใหม่เเล้ว", status: true });
       } else if (err instanceof multer.MulterError) {
         return res.send(err);
       } else if (err) {
