@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 
 const PercentSchema = new mongoose.Schema({
+  percent: {
+    central: { type: Number, required: true },
+    platform: { type: Number, required: true },
+    terrestrial: { type: Number, required: true },
+  },
   percent_central: {
     central: { type: Number, required: true },
     allsale: { type: Number, required: true },
@@ -25,6 +30,12 @@ const Percent = mongoose.model("percent_profit", PercentSchema);
 
 const validate = (data) => {
   const schema = Joi.object({
+    percent: Joi.object({
+      central: Joi.number().required(),
+      platform: Joi.number().required(),
+      terrestrial: Joi.number().required(),
+    }),
+
     percent_central: Joi.object({
       central: Joi.number().required(),
       allsale: Joi.number().required(),

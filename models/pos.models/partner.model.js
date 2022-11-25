@@ -19,7 +19,11 @@ const PartnersSchema = new mongoose.Schema({
   partner_email: { type: String, required: true }, //เมล
   partner_password: { type: String, required: true }, //รหัส
   partner_wallet: { type: Number, required: false, default: 0 },
+  partner_money: { type: Number, required: false, default: 0 },
   partner_phone: { type: String, required: true },
+  partner_district: { type: String, required: true },
+  partner_state: { type: String, required: true },
+  partner_province: { type: String, required: true },
   partner_address: { type: String, required: true },
   partner_status: { type: Boolean, required: false, default: true },
   partner_date_start: { type: Date, required: false, default: Date.now() }, // เริ่ม
@@ -50,7 +54,13 @@ const validate = (data) => {
       .required()
       .label("ไม่มีข้อมูลรหัสผ่าน"),
     partner_wallet: Joi.number().default(0),
+    partner_money: Joi.number().default(0),
     partner_phone: Joi.string().required().label("ไม่มีข้อมูลเบอร์โทรศัพท์"),
+
+    partner_district: Joi.string().required(),
+    partner_state: Joi.string().required(),
+    partner_province: Joi.string().required(),
+
     partner_address: Joi.string().required().label("ไม่มีข้อมูลที่อยู่"),
     partner_status: Joi.boolean().default(true),
     partner_date_start: Joi.date().raw().default(Date.now()),

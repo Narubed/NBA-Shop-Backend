@@ -12,3 +12,4 @@ router.delete("/:id", auth, type.delete);
 router.put("/:id", auth, type.update);
 
 module.exports = router;
+
