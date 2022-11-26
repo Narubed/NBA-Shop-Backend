@@ -5,14 +5,12 @@ const ProductReqSchema = new mongoose.Schema({
   productReq_shop_id: { type: String, required: true },
   productReq_name: { type: String, required: true },
   productReq_image: { type: String, required: false, default: "" },
-  
   productReq_cost: { type: Number, required: true },
   productReq_price: { type: Number, required: true },
-  productReq_profit: { type: Number, required: true }, //
-  productReq_status_type: { type: String, required: false, default: "เครดิต" },
-  productReq_status: { type: Boolean, required: false, default: false },
+
+  productReq_status: { type: String, required: false, default: "รอตรวจสอบ" },
   productReq_vat_status: { type: Boolean, required: false, default: true },
-  productReq_timestamp: { type: Date, required: false, default: Date.now() },
+  productReq_timestamp: { type: Array, required: false, default: [] },
 });
 
 const ProductReq = mongoose.model("product_request", ProductReqSchema);
@@ -24,11 +22,10 @@ const validate = (data) => {
     productReq_image: Joi.string().default(""),
     productReq_cost: Joi.number().required(),
     productReq_price: Joi.number().required(),
-    productReq_profit: Joi.number().required(),
-    productReq_status_type: Joi.string().default("เครดิต"),
-    productReq_status: Joi.boolean().default(false),
+
+    productReq_status: Joi.string().default("รอตรวจสอบ"),
     productReq_vat_status: Joi.boolean().default(true),
-    productReq_timestamp: Joi.date().raw().default(Date.now()),
+    productReq_timestamp: Joi.array().default([]),
   });
   return schema.validate(data);
 };

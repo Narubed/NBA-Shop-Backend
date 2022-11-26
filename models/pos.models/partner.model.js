@@ -21,6 +21,8 @@ const PartnersSchema = new mongoose.Schema({
   partner_wallet: { type: Number, required: false, default: 0 },
   partner_money: { type: Number, required: false, default: 0 },
   partner_phone: { type: String, required: true },
+  partner_level_name: { type: String, required: true },
+  partner_level_note: { type: String, required: false, default: "ไม่มี" },
   partner_district: { type: String, required: true },
   partner_state: { type: String, required: true },
   partner_province: { type: String, required: true },
@@ -56,7 +58,8 @@ const validate = (data) => {
     partner_wallet: Joi.number().default(0),
     partner_money: Joi.number().default(0),
     partner_phone: Joi.string().required().label("ไม่มีข้อมูลเบอร์โทรศัพท์"),
-
+    partner_level_name: Joi.string().required(),
+    partner_level_note: Joi.string().default("ไม่มี"),
     partner_district: Joi.string().required(),
     partner_state: Joi.string().required(),
     partner_province: Joi.string().required(),

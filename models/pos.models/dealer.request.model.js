@@ -7,7 +7,9 @@ const DealerReqSchema = new mongoose.Schema({
   dealerReq_product_id: { type: String, required: false, default: "ไม่มี" }, //
   dealerReq_image: { type: Array, required: false, default: [] },
   dealerReq_product_name: { type: String, required: true },
+  dealerReq_product_detail: { type: String, required: false, default: "ไม่มี" },
   dealerReq_product_image: { type: String, required: false, default: "" },
+
   dealerReq_cost: { type: Number, required: false, default: 0 },
   dealerReq_price: { type: Number, required: false, default: 0 },
   dealerReq_stock_amount: { type: Number, required: false, default: 0 }, //
@@ -26,6 +28,7 @@ const validate = (data) => {
     dealerReq_product_id: Joi.string().default("ไม่มี"),
     dealerReq_image: Joi.array().default([]),
     dealerReq_product_name: Joi.string().required(),
+    dealerReq_product_detail: Joi.string().default("ไม่มี"),
     dealerReq_product_image: Joi.string().default(""),
     dealerReq_cost: Joi.number().default(0),
     dealerReq_price: Joi.number().default(0),
