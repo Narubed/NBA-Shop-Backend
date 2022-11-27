@@ -25,6 +25,8 @@ app.use(
 app.use("/v1/nba-shop/line-notify", require("./routes/pos/line.notify"));
 // LOGIN
 app.use("/v1/nba-shop/login", require("./routes/pos/login"));
+app.use("/v1/nba-shop/login-company", require("./routes/pos/login.company"));
+
 app.use("/v1/nba-shop/admin", require("./routes/pos/admin"));
 // Check
 app.use("/v1/nba-shop/check", require("./routes/pos/check"));
