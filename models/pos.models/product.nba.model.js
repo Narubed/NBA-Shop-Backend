@@ -35,6 +35,7 @@ const ProductNBASchema = new mongoose.Schema({
   productNBA_status_type: { type: String, required: false, default: "เครดิต" },
   productNBA_detail: { type: String, required: false, default: "" },
   productNBA_stock: { type: Number, required: true }, //
+  productNBA_store: { type: String, required: false, default: "dealer" }, //
   productNBA_date_start: { type: Date, required: false, default: Date.now() }, // เริ่ม
   productNBA_vat_status: { type: Boolean, required: false, default: true }, // เพิ่ม
   // --------------------------------
@@ -76,6 +77,7 @@ const validate = (data) => {
     productNBA_status_type: Joi.string().default("เครดิต"),
     productNBA_detail: Joi.string().default(""),
     productNBA_stock: Joi.number().required(), // default 0
+    productNBA_store: Joi.string().default("dealer"),
     productNBA_date_start: Joi.date().raw().default(Date.now()),
     productNBA_vat_status: Joi.boolean().default(true),
   });
